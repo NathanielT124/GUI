@@ -9,7 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db  = SQLAlchemy(app)
 
@@ -39,6 +38,7 @@ def get_drinks():
         drink_data = {'name': drink.name, 'description': drink. description}
         output.append(drink_data)
     return {"drinks": output}
+
 @app.route('/drinks/<id>')
 def get_drink(id):
     drink = Drink.query.get_or_404(id)
