@@ -65,7 +65,7 @@ def delete_drink():
 """
 @app.route('/youngs/')
 def young():
-    return {"name": "Cranberry Applesauce", "description": "It's more like a snack than a drink."}
+    return {"name": "Cranberry Applesauce", "description": "It's a snack."}
 
 @app.route('/elastic/youngs/<material>/<temperature>')
 def youngs(material, temperature):

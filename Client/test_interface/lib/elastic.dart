@@ -7,7 +7,7 @@ Future<HBBdouble> fetchValue(String lib, String function, List<String> args) asy
   {
     url += args[i] + '/';
   }
-  
+
   response = await http.get(Uri.parse(url));
 
   if (response.statusCode == 200) {
@@ -18,7 +18,7 @@ Future<HBBdouble> fetchValue(String lib, String function, List<String> args) asy
   }
 }
 
-class HBBdobule {
+class HBBdouble {
   final double value
 
   const Album({required this.value});

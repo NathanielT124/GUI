@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'album.dart'
+import 'album.dart';
 
 void main() => runApp(const MyApp());
 
