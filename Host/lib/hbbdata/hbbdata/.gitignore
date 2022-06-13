@@ -1,0 +1,16 @@
+*.pyc
+*.swp
+*.aux
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.toc
+verification/report/verification.pdf
+*.synctex*
+.coverage
+.DS_Store
+other
+_build
+.buildinfo

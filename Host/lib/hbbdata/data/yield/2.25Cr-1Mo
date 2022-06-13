@@ -1,0 +1,30 @@
+# data validated 03-09-2017 by Andrea Rovinelli
+# Units are C and MPa
+# Data are from Section II, Part D and Section III, Division 5
+# plate, SA-387, GRADE 22, UNS-K21590,CLASS 1
+-30   207
+40    207
+65    197
+100   192
+125   190
+150   187
+175   186
+200   185
+225   185
+250   185
+275   185
+300   185
+325   185
+350   185
+375   185
+400   185
+425   184
+450   181
+475   178
+500   173
+525   167
+550   160
+575   151
+600   139
+625   126
+650   110

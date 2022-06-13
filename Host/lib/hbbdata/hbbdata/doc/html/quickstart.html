@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Quickstart guide &#8212; hbbdata 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API description and documentation" href="api.html" />
+    <link rel="prev" title="Installing hbbdata" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="quickstart-guide">
+<span id="quickstart"></span><h1>Quickstart guide<a class="headerlink" href="#quickstart-guide" title="Permalink to this headline">¶</a></h1>
+<p>This guide assumes you have followed the installation instructions and have added hbbdata to your <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>.</p>
+<p>Open up a terminal and run Python 3.7.  First test to make sure you can import the hbbdata module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">hbbdata</span>
+</pre></div>
+</div>
+<p>If this command runs without error keep going.  If not go back to <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installing hbbdata</span></a>.</p>
+<p>The hbbdata API is divided into a number of modules, each containing logically similar functions accessing the Division 5 design data.  For more details see <a class="reference internal" href="api.html#api"><span class="std std-ref">API description and documentation</span></a>.</p>
+<p>As an example, let’s find the ASME Section II Young’s modulus of 316SS at 700°C.  Simply type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbbdata</span> <span class="kn">import</span> <span class="n">elastic</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elastic</span><span class="o">.</span><span class="n">youngs</span><span class="p">(</span><span class="s2">&quot;316&quot;</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+<span class="go">140000.0</span>
+</pre></div>
+</div>
+<p>Or we could look up the design yield strength of Alloy 800H at 550°C:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbbdata</span> <span class="kn">import</span> <span class="n">plastic</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plastic</span><span class="o">.</span><span class="n">yield_stress</span><span class="p">(</span><span class="s2">&quot;800H&quot;</span><span class="p">,</span> <span class="mi">550</span><span class="p">)</span>
+<span class="go">108.0</span>
+</pre></div>
+</div>
+<p>A slightly more complicated example might be to determine if the point represented by a fatigue damage fraction of 0.1 and a creep damage fraction of 0.4 falls within the design creep-fatigue interaction diagram from 2-1/4Cr-1Mo steel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbbdata</span> <span class="kn">import</span> <span class="n">interaction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interaction</span><span class="o">.</span><span class="n">inside_envelope</span><span class="p">(</span><span class="s2">&quot;2.25Cr-1Mo&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>As a final example, find the strain corresponding to a stress of 120 MPa for the 9Cr-1Mo-V isochronous stress-strain curve for 525°C and 120,000 hours design life:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbbdata</span> <span class="kn">import</span> <span class="n">isochronous</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">isochronous</span><span class="o">.</span><span class="n">strain_to_time_stress</span><span class="p">(</span><span class="s2">&quot;gr91&quot;</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mf">120000.0</span><span class="p">,</span> <span class="mi">220</span><span class="p">)</span>
+<span class="go">0.05559105838726914</span>
+</pre></div>
+</div>
+<p>All of the design data can be accessed through these and similar functions, which are fully described in the <a class="reference internal" href="api.html#api"><span class="std std-ref">API description and documentation</span></a>.</p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">hbbdata</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing hbbdata</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API description and documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plan.html">Software quality plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Verification and Validation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installing hbbdata</a></li>
+      <li>Next: <a href="api.html" title="next chapter">API description and documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Argonne National Laboratory.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/quickstart.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

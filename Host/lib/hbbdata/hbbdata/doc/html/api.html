@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>API description and documentation &#8212; hbbdata 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Software quality plan" href="plan.html" />
+    <link rel="prev" title="Quickstart guide" href="quickstart.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="api-description-and-documentation">
+<span id="api"></span><h1>API description and documentation<a class="headerlink" href="#api-description-and-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general-overview">
+<h2>General overview<a class="headerlink" href="#general-overview" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the complete public API of the hbbdata package.  In general, functions providing Section III, Division 5 design data will take as parameters a material, a temperature, other design parameters, and optional parameters describing options in the Code that are not always taken.</p>
+<p>The convention for relating each Class A material to a string key, used in identifying the material in the package, is given in the following table:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Material keys</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Material</p></th>
+<th class="head"><p>Key</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>304SS</p></td>
+<td><p>304</p></td>
+</tr>
+<tr class="row-odd"><td><p>316SS</p></td>
+<td><p>316</p></td>
+</tr>
+<tr class="row-even"><td><p>Ni-Fe-Cr UNS N08810</p></td>
+<td><p>800H</p></td>
+</tr>
+<tr class="row-odd"><td><p>2-1/4Cr-1Mo</p></td>
+<td><p>2.25Cr-1Mo</p></td>
+</tr>
+<tr class="row-even"><td><p>9Cr-1Mo-V</p></td>
+<td><p>gr91</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alloy 617</p></td>
+<td><p>A617</p></td>
+</tr>
+</tbody>
+</table>
+<p>In all cases package unites are consistent with the following unit system:</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Unit system</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Stress</p></td>
+<td><p>MPa</p></td>
+</tr>
+<tr class="row-odd"><td><p>Temperature</p></td>
+<td><p>°C</p></td>
+</tr>
+<tr class="row-even"><td><p>Time</p></td>
+<td><p>hours</p></td>
+</tr>
+<tr class="row-odd"><td><p>Strain</p></td>
+<td><p>mm/mm</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="api-documentation">
+<h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
+<p>The hbbdata package is divided into a number of submodules, each containing logically related sets of design data functions.  The following sections document each module individually.</p>
+<p>In addition to this public API, the package also contains a number of helper functions designed to read and interpolate data and aid in testing.  These functions are documented with Python docstrings in their individual source files.</p>
+<div class="section" id="module-hbbdata.elastic">
+<span id="elastic"></span><h3>elastic<a class="headerlink" href="#module-hbbdata.elastic" title="Permalink to this headline">¶</a></h3>
+<p>This module returns the Code values of elastic properties as functions
+of temperature.</p>
+<dl class="function">
+<dt id="hbbdata.elastic.poissons">
+<code class="sig-prename descclassname">hbbdata.elastic.</code><code class="sig-name descname">poissons</code><span class="sig-paren">(</span><em class="sig-param">material</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.elastic.poissons" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ASME Poissons ratios are temperature independent so this function
+just returns the relevant value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>material</strong> – the HBB class A material</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.elastic.youngs">
+<code class="sig-prename descclassname">hbbdata.elastic.</code><code class="sig-name descname">youngs</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">extrapolate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.elastic.youngs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The code specifies the Young’s modulus as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>temp</strong> – the temperature(s) to return values for, C</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.thermal">
+<span id="thermal"></span><h3>thermal<a class="headerlink" href="#module-hbbdata.thermal" title="Permalink to this headline">¶</a></h3>
+<p>This module return thermal properties (coefficient of thermal expansion,
+thermal conductivity, and thermal diffusivity) from Section II</p>
+<dl class="function">
+<dt id="hbbdata.thermal.ctc">
+<code class="sig-prename descclassname">hbbdata.thermal.</code><code class="sig-name descname">ctc</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">extrapolate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.thermal.ctc" title="Permalink to this definition">¶</a></dt>
+<dd><p>The code specified instantaneous CTC as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>temp</strong> – the temperature(s) to return values for, C</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>extrapolate</strong> – if true extrapolate properties</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.thermal.ctd">
+<code class="sig-prename descclassname">hbbdata.thermal.</code><code class="sig-name descname">ctd</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">extrapolate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.thermal.ctd" title="Permalink to this definition">¶</a></dt>
+<dd><p>The code specified instantaneous CTD as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>temp</strong> – the temperature(s) to return values for, C</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>extrapolate</strong> – if true extrapolate properties</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.thermal.cte">
+<code class="sig-prename descclassname">hbbdata.thermal.</code><code class="sig-name descname">cte</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">extrapolate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.thermal.cte" title="Permalink to this definition">¶</a></dt>
+<dd><p>The code specified instantaneous CTE as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>temp</strong> – the temperature(s) to return values for, C</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>extrapolate</strong> – if true extrapolate properties</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.plastic">
+<span id="plastic"></span><h3>plastic<a class="headerlink" href="#module-hbbdata.plastic" title="Permalink to this headline">¶</a></h3>
+<p>This module returns Code values of yield stress and ultimate tensile stress</p>
+<dl class="function">
+<dt id="hbbdata.plastic.tensile_strength_reduction_factor">
+<code class="sig-prename descclassname">hbbdata.plastic.</code><code class="sig-name descname">tensile_strength_reduction_factor</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">time</em>, <em class="sig-param">temp</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.plastic.tensile_strength_reduction_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the tensile strength reduction factor for the given
+material, time, and temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>time</strong> – time (in hours) of service &#64; temperature</p></li>
+<li><p><strong>temperature</strong> – service temperature, degrees C</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.plastic.ultimate_tensile_stress">
+<code class="sig-prename descclassname">hbbdata.plastic.</code><code class="sig-name descname">ultimate_tensile_stress</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">reduce_temp=None</em>, <em class="sig-param">time=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.plastic.ultimate_tensile_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code Su as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>temperature</strong> – the temperature(s) to return values for, C</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>reduce_temp</strong> – temperature to use for the strength reduction factor
+Default (None) means use the actual temperature</p></li>
+<li><p><strong>time</strong> – service time or equivalent service time &#64; temperature,
+for applying strength reduction factor
+Default (None) implies no reduction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.plastic.yield_strength_reduction_factor">
+<code class="sig-prename descclassname">hbbdata.plastic.</code><code class="sig-name descname">yield_strength_reduction_factor</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">time</em>, <em class="sig-param">temp</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.plastic.yield_strength_reduction_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the yield strength reduction factor for the given
+material, time, and temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>time</strong> – time (in hours) of service &#64; temperature</p></li>
+<li><p><strong>temperature</strong> – service temperature, degrees C</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.plastic.yield_stress">
+<code class="sig-prename descclassname">hbbdata.plastic.</code><code class="sig-name descname">yield_stress</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">reduce_temp=None</em>, <em class="sig-param">time=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.plastic.yield_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code Sy as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB class A material</p></li>
+<li><p><strong>temperature</strong> – the temperature(s) to return values for, C</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>reduce_temp</strong> – temperature to use for the strength reduction factor
+Default (None) means use the actual temperature</p></li>
+<li><p><strong>time</strong> – service time or equivalent service time &#64; temperature,
+for applying strength reduction factor
+Default (None) implies no reduction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.intensities">
+<span id="intensities"></span><h3>intensities<a class="headerlink" href="#module-hbbdata.intensities" title="Permalink to this headline">¶</a></h3>
+<p>Functions returning the various primary stress allowable intensities</p>
+<dl class="function">
+<dt id="hbbdata.intensities.S_m">
+<code class="sig-prename descclassname">hbbdata.intensities.</code><code class="sig-name descname">S_m</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">reduce_temp=None</em>, <em class="sig-param">time=None</em>, <em class="sig-param">RT=20.0</em>, <em class="sig-param">no_reduction=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.intensities.S_m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code time-independent allowable S_m as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – valid HBB Class A material</p></li>
+<li><p><strong>temp</strong> – temperature requested</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>reduce_temp</strong> – temperature to use for the strength reduction factor.
+Default (None) means use the actual temperature</p></li>
+<li><p><strong>time</strong> – time or equivalent time, for applying strength reduction
+factors
+Default (None) does not apply a reduction</p></li>
+<li><p><strong>RT</strong> – the value of room temperature, for determining
+the allowable</p></li>
+<li><p><strong>no_reduction</strong> – override the time/temperature factors and return unaged
+properties (Default False)</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Source:</dt><dd><p>Code rules, strictly in Section II.  However a good summary
+is in HBB-2160 (3), (-b) to (-f)</p>
+<p>S_m is the minimum of:</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li><p>1/3 * Su &#64; room temperature</p></li>
+<li><p>1/3 * Su &#64; temperature</p></li>
+<li><p>2/3 * Sy &#64; room tepmerature</p></li>
+<li><dl class="simple">
+<dt>For 304, 316, A800H, and A617:</dt><dd><p>90% * Sy &#64; temperature</p>
+</dd>
+<dt>For the rest:</dt><dd><p>2/3 * Sy &#64; temperature</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.intensities.S_mt">
+<code class="sig-prename descclassname">hbbdata.intensities.</code><code class="sig-name descname">S_mt</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">time</em>, <em class="sig-param">extrapolate=False</em>, <em class="sig-param">reduce_temp=None</em>, <em class="sig-param">effective_time=None</em>, <em class="sig-param">RT=20.0</em>, <em class="sig-param">no_reduction=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.intensities.S_mt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code S_mt allowable stress intensity as a function of temperature and time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>temp</strong> – temperature, in degrees C</p></li>
+<li><p><strong>time</strong> – time, hours</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>extrapolate</strong> – extrapolate off the Code table, applies only to
+S_t</p></li>
+<li><p><strong>reduce_temp</strong> – temperature to use for time-temperature reduction factor,
+defaults to actual temperature</p></li>
+<li><p><strong>effective_time</strong> – time for time-temperature reduction factor,
+defaults to actual time</p></li>
+<li><p><strong>RT</strong> – room temperature for that part of the Sm definition</p></li>
+<li><p><strong>no_reduction</strong> – override the time/temperature factors and return unaged
+properties</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.intensities.S_o">
+<code class="sig-prename descclassname">hbbdata.intensities.</code><code class="sig-name descname">S_o</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.intensities.S_o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code design allowable stress intensity S_o as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>temp</strong> – temperature, in degrees C</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.intensities.S_t">
+<code class="sig-prename descclassname">hbbdata.intensities.</code><code class="sig-name descname">S_t</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">time</em>, <em class="sig-param">extrapolate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.intensities.S_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code time-dependent allowable stress intensity S_t as a function
+of temperature and time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – valid HBB Class A material</p></li>
+<li><p><strong>temp</strong> – temperature, degree C</p></li>
+<li><p><strong>time</strong> – time, hours</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>extrapolate</strong> – extrapolate outside of Code tables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.intensities.time_S_t">
+<code class="sig-prename descclassname">hbbdata.intensities.</code><code class="sig-name descname">time_S_t</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">stress</em>, <em class="sig-param">extrapolate=True</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.intensities.time_S_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return Code value of time to a given S_t</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB Class A material</p></li>
+<li><p><strong>temp</strong> – temperature</p></li>
+<li><p><strong>stress</strong> – S_t</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>extrapolate</strong> – extrapolate outside Code table</p></li>
+<li><p><strong>ztol</strong> – tolerance for checking if function value is flat</p></li>
+<li><p><strong>bigmax</strong> – big bracket value for brentq</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.rupture">
+<span id="rupture"></span><h3>rupture<a class="headerlink" href="#module-hbbdata.rupture" title="Permalink to this headline">¶</a></h3>
+<p>Module returns rupture stresses and times from Section III, Division 5</p>
+<dl class="function">
+<dt id="hbbdata.rupture.S_r">
+<code class="sig-prename descclassname">hbbdata.rupture.</code><code class="sig-name descname">S_r</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">time</em>, <em class="sig-param">extrapolate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.rupture.S_r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Code Sr value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB Class A material</p></li>
+<li><p><strong>temp</strong> – the temperature to get data for, C</p></li>
+<li><p><strong>time</strong> – the time to get data for, hrs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>extrapolate</strong> – extrapolate out of the table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.rupture.time_rupture">
+<code class="sig-prename descclassname">hbbdata.rupture.</code><code class="sig-name descname">time_rupture</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temp</em>, <em class="sig-param">stress</em>, <em class="sig-param">extrapolate=True</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.rupture.time_rupture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Code value of time to rupture</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – the HBB Class A material</p></li>
+<li><p><strong>temp</strong> – the temperature to get data for, C</p></li>
+<li><p><strong>stress</strong> – the rupture stress, MPa</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>extrapolate</strong> – if true, extrapolate out of the table</p></li>
+<li><p><strong>ztol</strong> – tolerance for checking if the function value is flat</p></li>
+<li><p><strong>bigmax</strong> – maximum time for extrapolation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.fatigue">
+<span id="fatigue"></span><h3>fatigue<a class="headerlink" href="#module-hbbdata.fatigue" title="Permalink to this headline">¶</a></h3>
+<p>Functions returning Code fatigue curve data and generated related data.</p>
+<dl class="function">
+<dt id="hbbdata.fatigue.cycles_to_failure">
+<code class="sig-prename descclassname">hbbdata.fatigue.</code><code class="sig-name descname">cycles_to_failure</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">maxtemp</em>, <em class="sig-param">erange</em>, <em class="sig-param">extrapolate=True</em>, <em class="sig-param">cycles_min=0.0</em>, <em class="sig-param">cycles_max=1000000000000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.fatigue.cycles_to_failure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of cycles to failure for a given strain range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>maxtemp</strong> – maximum cycle temperature</p></li>
+<li><p><strong>erange</strong> – strain range</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>extrapolate</strong> – extrapolate outside the table (Default=True)</p></li>
+<li><p><strong>cycles_min</strong> – minimum number of cycles, for Brent’s method (Default=0.0)</p></li>
+<li><p><strong>cycles_max</strong> – maximum number of cycles, for Brent’s method (Default=1.0e12)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.fatigue.strain_to_failure">
+<code class="sig-prename descclassname">hbbdata.fatigue.</code><code class="sig-name descname">strain_to_failure</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">maxtemp</em>, <em class="sig-param">cycles</em>, <em class="sig-param">extrapolate=True</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.fatigue.strain_to_failure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strain to failure for a given number of cycles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>maxtemp</strong> – maximum cycle temperature</p></li>
+<li><p><strong>cycles</strong> – number of cycles</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>extrapolate</strong> – extrapolate outside the table (Default=True)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.interaction">
+<span id="interaction"></span><h3>interaction<a class="headerlink" href="#module-hbbdata.interaction" title="Permalink to this headline">¶</a></h3>
+<p>This module handles checks of the Code creep-fatigue interaction diagrams</p>
+<dl class="function">
+<dt id="hbbdata.interaction.distance_envelope">
+<code class="sig-prename descclassname">hbbdata.interaction.</code><code class="sig-name descname">distance_envelope</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">damage_fatigue</em>, <em class="sig-param">damage_creep</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.interaction.distance_envelope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Distance from a point to the envelope, sign is positive if
+inside the envelop and negative if outside</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>damage_fatigue</strong> – fatigue damage fraction</p></li>
+<li><p><strong>damage_creep</strong> – creep damage fraction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.interaction.inside_envelope">
+<code class="sig-prename descclassname">hbbdata.interaction.</code><code class="sig-name descname">inside_envelope</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">damage_fatigue</em>, <em class="sig-param">damage_creep</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.interaction.inside_envelope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the point lies in the design envelope and False if not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>damage_fatigue</strong> – fatigue damage fraction</p></li>
+<li><p><strong>damage_creep</strong> – creep damage fraction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.interaction.interaction_fatigue">
+<code class="sig-prename descclassname">hbbdata.interaction.</code><code class="sig-name descname">interaction_fatigue</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">damage_fatigue</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.interaction.interaction_fatigue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enter the interaction diagram with a fatigue damage fraction and
+return the allowable creep damage fraction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>damage_fatigue</strong> – fatigue damage fraction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.interaction.interaction_creep">
+<code class="sig-prename descclassname">hbbdata.interaction.</code><code class="sig-name descname">interaction_creep</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">damage_creep</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.interaction.interaction_creep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enter the interaction diagram with a creep damage fraction and return
+the allowable fatigue damage fraction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB Class A material</p></li>
+<li><p><strong>damage_creep</strong> – creep damage fraction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.isochronous">
+<span id="isochronous"></span><h3>isochronous<a class="headerlink" href="#module-hbbdata.isochronous" title="Permalink to this headline">¶</a></h3>
+<p>This module returns values for isochronous and hot tensile curves for the
+Code materials.</p>
+<dl class="function">
+<dt id="hbbdata.isochronous.isochronous">
+<code class="sig-prename descclassname">hbbdata.isochronous.</code><code class="sig-name descname">isochronous</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temperature</em>, <em class="sig-param">life</em>, <em class="sig-param">strain=array([0.</em>, <em class="sig-param">0.00044898</em>, <em class="sig-param">0.00089796</em>, <em class="sig-param">0.00134694</em>, <em class="sig-param">0.00179592</em>, <em class="sig-param">0.0022449</em>, <em class="sig-param">0.00269388</em>, <em class="sig-param">0.00314286</em>, <em class="sig-param">0.00359184</em>, <em class="sig-param">0.00404082</em>, <em class="sig-param">0.0044898</em>, <em class="sig-param">0.00493878</em>, <em class="sig-param">0.00538776</em>, <em class="sig-param">0.00583673</em>, <em class="sig-param">0.00628571</em>, <em class="sig-param">0.00673469</em>, <em class="sig-param">0.00718367</em>, <em class="sig-param">0.00763265</em>, <em class="sig-param">0.00808163</em>, <em class="sig-param">0.00853061</em>, <em class="sig-param">0.00897959</em>, <em class="sig-param">0.00942857</em>, <em class="sig-param">0.00987755</em>, <em class="sig-param">0.01032653</em>, <em class="sig-param">0.01077551</em>, <em class="sig-param">0.01122449</em>, <em class="sig-param">0.01167347</em>, <em class="sig-param">0.01212245</em>, <em class="sig-param">0.01257143</em>, <em class="sig-param">0.01302041</em>, <em class="sig-param">0.01346939</em>, <em class="sig-param">0.01391837</em>, <em class="sig-param">0.01436735</em>, <em class="sig-param">0.01481633</em>, <em class="sig-param">0.01526531</em>, <em class="sig-param">0.01571429</em>, <em class="sig-param">0.01616327</em>, <em class="sig-param">0.01661224</em>, <em class="sig-param">0.01706122</em>, <em class="sig-param">0.0175102</em>, <em class="sig-param">0.01795918</em>, <em class="sig-param">0.01840816</em>, <em class="sig-param">0.01885714</em>, <em class="sig-param">0.01930612</em>, <em class="sig-param">0.0197551</em>, <em class="sig-param">0.02020408</em>, <em class="sig-param">0.02065306</em>, <em class="sig-param">0.02110204</em>, <em class="sig-param">0.02155102</em>, <em class="sig-param">0.022     ])</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.isochronous.isochronous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Supply the isochronous curve at the provided temperature and design life.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB class A material</p></li>
+<li><p><strong>temperature</strong> – temperature, in C</p></li>
+<li><p><strong>life</strong> – design life, in hours</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>strain</strong> – nominal engineering strains to return</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.isochronous.hot_tensile">
+<code class="sig-prename descclassname">hbbdata.isochronous.</code><code class="sig-name descname">hot_tensile</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temperature</em>, <em class="sig-param">strain=array([0.</em>, <em class="sig-param">0.00044898</em>, <em class="sig-param">0.00089796</em>, <em class="sig-param">0.00134694</em>, <em class="sig-param">0.00179592</em>, <em class="sig-param">0.0022449</em>, <em class="sig-param">0.00269388</em>, <em class="sig-param">0.00314286</em>, <em class="sig-param">0.00359184</em>, <em class="sig-param">0.00404082</em>, <em class="sig-param">0.0044898</em>, <em class="sig-param">0.00493878</em>, <em class="sig-param">0.00538776</em>, <em class="sig-param">0.00583673</em>, <em class="sig-param">0.00628571</em>, <em class="sig-param">0.00673469</em>, <em class="sig-param">0.00718367</em>, <em class="sig-param">0.00763265</em>, <em class="sig-param">0.00808163</em>, <em class="sig-param">0.00853061</em>, <em class="sig-param">0.00897959</em>, <em class="sig-param">0.00942857</em>, <em class="sig-param">0.00987755</em>, <em class="sig-param">0.01032653</em>, <em class="sig-param">0.01077551</em>, <em class="sig-param">0.01122449</em>, <em class="sig-param">0.01167347</em>, <em class="sig-param">0.01212245</em>, <em class="sig-param">0.01257143</em>, <em class="sig-param">0.01302041</em>, <em class="sig-param">0.01346939</em>, <em class="sig-param">0.01391837</em>, <em class="sig-param">0.01436735</em>, <em class="sig-param">0.01481633</em>, <em class="sig-param">0.01526531</em>, <em class="sig-param">0.01571429</em>, <em class="sig-param">0.01616327</em>, <em class="sig-param">0.01661224</em>, <em class="sig-param">0.01706122</em>, <em class="sig-param">0.0175102</em>, <em class="sig-param">0.01795918</em>, <em class="sig-param">0.01840816</em>, <em class="sig-param">0.01885714</em>, <em class="sig-param">0.01930612</em>, <em class="sig-param">0.0197551</em>, <em class="sig-param">0.02020408</em>, <em class="sig-param">0.02065306</em>, <em class="sig-param">0.02110204</em>, <em class="sig-param">0.02155102</em>, <em class="sig-param">0.022     ])</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.isochronous.hot_tensile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Supply the hot tensile curve at the requested temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB class A material</p></li>
+<li><p><strong>temperature</strong> – temperature, in C</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>strain</strong> – nominal engineering strains to return</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.isochronous.strain_to_time_stress">
+<code class="sig-prename descclassname">hbbdata.isochronous.</code><code class="sig-name descname">strain_to_time_stress</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temperature</em>, <em class="sig-param">time</em>, <em class="sig-param">stress</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.isochronous.strain_to_time_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the strain at a given temperature, time and stress</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB class A material</p></li>
+<li><p><strong>temperature</strong> – temperature, in C</p></li>
+<li><p><strong>time</strong> – time, in hours</p></li>
+<li><p><strong>stress</strong> – stress, in MPa</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.isochronous.issc_relaxation_analysis_stress">
+<code class="sig-prename descclassname">hbbdata.isochronous.</code><code class="sig-name descname">issc_relaxation_analysis_stress</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temperature</em>, <em class="sig-param">stress</em>, <em class="sig-param">times</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.isochronous.issc_relaxation_analysis_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a code method of isochronous curves relaxation analysis
+hitting each of the indicated times.</p>
+<p>This routine is stress-based</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB class A material</p></li>
+<li><p><strong>temperature</strong> – temperature, in C</p></li>
+<li><p><strong>stress</strong> – initial stress, in MPa</p></li>
+<li><p><strong>times</strong> – times to solve for, in hours</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.isochronous.issc_relaxation_analysis_strain">
+<code class="sig-prename descclassname">hbbdata.isochronous.</code><code class="sig-name descname">issc_relaxation_analysis_strain</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">temperature</em>, <em class="sig-param">strain</em>, <em class="sig-param">times</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.isochronous.issc_relaxation_analysis_strain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a code method of isochronous curves relaxation analysis
+hitting each of the indicated times.</p>
+<p>This routine is strain-based</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB class A material</p></li>
+<li><p><strong>temperature</strong> – temperature, in C</p></li>
+<li><p><strong>strain</strong> – initial strain, mm/mm</p></li>
+<li><p><strong>times</strong> – times to solve for, in hours</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.epp">
+<span id="epp"></span><h3>epp<a class="headerlink" href="#module-hbbdata.epp" title="Permalink to this headline">¶</a></h3>
+<p>This module contains tools for the Section III, Division 5
+Elastic Perfectly Plastic (EPP) Code cases.</p>
+<dl class="function">
+<dt id="hbbdata.epp.pseudoyield_N861">
+<code class="sig-prename descclassname">hbbdata.epp.</code><code class="sig-name descname">pseudoyield_N861</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">life</em>, <em class="sig-param">target_strain</em>, <em class="sig-param">temp=array([ 40.</em>, <em class="sig-param">51.42857143</em>, <em class="sig-param">62.85714286</em>, <em class="sig-param">74.28571429</em>, <em class="sig-param">85.71428571</em>, <em class="sig-param">97.14285714</em>, <em class="sig-param">108.57142857</em>, <em class="sig-param">120.</em>, <em class="sig-param">131.42857143</em>, <em class="sig-param">142.85714286</em>, <em class="sig-param">154.28571429</em>, <em class="sig-param">165.71428571</em>, <em class="sig-param">177.14285714</em>, <em class="sig-param">188.57142857</em>, <em class="sig-param">200.</em>, <em class="sig-param">211.42857143</em>, <em class="sig-param">222.85714286</em>, <em class="sig-param">234.28571429</em>, <em class="sig-param">245.71428571</em>, <em class="sig-param">257.14285714</em>, <em class="sig-param">268.57142857</em>, <em class="sig-param">280.</em>, <em class="sig-param">291.42857143</em>, <em class="sig-param">302.85714286</em>, <em class="sig-param">314.28571429</em>, <em class="sig-param">325.71428571</em>, <em class="sig-param">337.14285714</em>, <em class="sig-param">348.57142857</em>, <em class="sig-param">360.</em>, <em class="sig-param">371.42857143</em>, <em class="sig-param">382.85714286</em>, <em class="sig-param">394.28571429</em>, <em class="sig-param">405.71428571</em>, <em class="sig-param">417.14285714</em>, <em class="sig-param">428.57142857</em>, <em class="sig-param">440.</em>, <em class="sig-param">451.42857143</em>, <em class="sig-param">462.85714286</em>, <em class="sig-param">474.28571429</em>, <em class="sig-param">485.71428571</em>, <em class="sig-param">497.14285714</em>, <em class="sig-param">508.57142857</em>, <em class="sig-param">520.</em>, <em class="sig-param">531.42857143</em>, <em class="sig-param">542.85714286</em>, <em class="sig-param">554.28571429</em>, <em class="sig-param">565.71428571</em>, <em class="sig-param">577.14285714</em>, <em class="sig-param">588.57142857</em>, <em class="sig-param">600.        ])</em>, <em class="sig-param">disable_yield=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.epp.pseudoyield_N861" title="Permalink to this definition">¶</a></dt>
+<dd><p>The EPP strain limits pseudoyield stress as a function of temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB class A material</p></li>
+<li><p><strong>life</strong> – design life, in hours.  A life of 0 is interpreted to mean
+use the hot tensile curve</p></li>
+<li><p><strong>target_strain</strong> – the target strain</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>temp</strong> – temperature(s) to return</p></li>
+<li><p><strong>disable_yield</strong> – if true skip the yield check</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.epp.pseudoyield_N862">
+<code class="sig-prename descclassname">hbbdata.epp.</code><code class="sig-name descname">pseudoyield_N862</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">t_prime</em>, <em class="sig-param">temp=array([ 20.</em>, <em class="sig-param">31.83673469</em>, <em class="sig-param">43.67346939</em>, <em class="sig-param">55.51020408</em>, <em class="sig-param">67.34693878</em>, <em class="sig-param">79.18367347</em>, <em class="sig-param">91.02040816</em>, <em class="sig-param">102.85714286</em>, <em class="sig-param">114.69387755</em>, <em class="sig-param">126.53061224</em>, <em class="sig-param">138.36734694</em>, <em class="sig-param">150.20408163</em>, <em class="sig-param">162.04081633</em>, <em class="sig-param">173.87755102</em>, <em class="sig-param">185.71428571</em>, <em class="sig-param">197.55102041</em>, <em class="sig-param">209.3877551</em>, <em class="sig-param">221.2244898</em>, <em class="sig-param">233.06122449</em>, <em class="sig-param">244.89795918</em>, <em class="sig-param">256.73469388</em>, <em class="sig-param">268.57142857</em>, <em class="sig-param">280.40816327</em>, <em class="sig-param">292.24489796</em>, <em class="sig-param">304.08163265</em>, <em class="sig-param">315.91836735</em>, <em class="sig-param">327.75510204</em>, <em class="sig-param">339.59183673</em>, <em class="sig-param">351.42857143</em>, <em class="sig-param">363.26530612</em>, <em class="sig-param">375.10204082</em>, <em class="sig-param">386.93877551</em>, <em class="sig-param">398.7755102</em>, <em class="sig-param">410.6122449</em>, <em class="sig-param">422.44897959</em>, <em class="sig-param">434.28571429</em>, <em class="sig-param">446.12244898</em>, <em class="sig-param">457.95918367</em>, <em class="sig-param">469.79591837</em>, <em class="sig-param">481.63265306</em>, <em class="sig-param">493.46938776</em>, <em class="sig-param">505.30612245</em>, <em class="sig-param">517.14285714</em>, <em class="sig-param">528.97959184</em>, <em class="sig-param">540.81632653</em>, <em class="sig-param">552.65306122</em>, <em class="sig-param">564.48979592</em>, <em class="sig-param">576.32653061</em>, <em class="sig-param">588.16326531</em>, <em class="sig-param">600.        ])</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.epp.pseudoyield_N862" title="Permalink to this definition">¶</a></dt>
+<dd><p>The pseudoyield stress used in Code Case N-862</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> – HBB class A material</p></li>
+<li><p><strong>t_prime</strong> – trial life</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>temp</strong> – temperatures requested</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hbbdata.limits">
+<span id="limits"></span><h3>limits<a class="headerlink" href="#module-hbbdata.limits" title="Permalink to this headline">¶</a></h3>
+<p>This module implements various temperature limits used in the Code</p>
+<dl class="function">
+<dt id="hbbdata.limits.Sm_St">
+<code class="sig-prename descclassname">hbbdata.limits.</code><code class="sig-name descname">Sm_St</code><span class="sig-paren">(</span><em class="sig-param">material</em>, <em class="sig-param">time=100000.0</em>, <em class="sig-param">ll=425.0</em>, <em class="sig-param">ul=600.0</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.limits.Sm_St" title="Permalink to this definition">¶</a></dt>
+<dd><p>The S_m == S_t for 100,000 hours criteria used in HBB-T</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>material</strong> – the HBB class A material</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>time</strong> – the time to use in the equality, default 100,000 hours</p></li>
+<li><p><strong>ll</strong> – lower limit to use in solving for the critical point</p></li>
+<li><p><strong>ul</strong> – upper limit to use in solving for the critical point</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.limits.Sr_max_T">
+<code class="sig-prename descclassname">hbbdata.limits.</code><code class="sig-name descname">Sr_max_T</code><span class="sig-paren">(</span><em class="sig-param">material</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.limits.Sr_max_T" title="Permalink to this definition">¶</a></dt>
+<dd><p>The hot temperature as defined by HAA-1330-1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>material</strong> – the HBB class A material</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hbbdata.limits.T_max">
+<code class="sig-prename descclassname">hbbdata.limits.</code><code class="sig-name descname">T_max</code><span class="sig-paren">(</span><em class="sig-param">material</em><span class="sig-paren">)</span><a class="headerlink" href="#hbbdata.limits.T_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>The hot temperature as defined by HAA-1330-1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>material</strong> – the HBB class A material</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">hbbdata</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing hbbdata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API description and documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-overview">General overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-documentation">API documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plan.html">Software quality plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Verification and Validation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="quickstart.html" title="previous chapter">Quickstart guide</a></li>
+      <li>Next: <a href="plan.html" title="next chapter">Software quality plan</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Argonne National Laboratory.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

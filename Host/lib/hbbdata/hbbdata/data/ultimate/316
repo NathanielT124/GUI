@@ -1,0 +1,31 @@
+# data validated 03-09-2017 by Andrea Rovinelli
+# Units are C and MPa
+# Data are from Section II, Part D and Section III, Division 5
+# plate, SA-240, 316, UNS-S31600,CLASS -
+-30   517
+40    517
+100   516
+150   502
+200   496
+250   495
+300   495
+325   495
+350   495
+375   495
+400   493
+425   489
+450   482
+475   474
+500   463
+525   450
+550   435
+575   417
+600   396
+625   373
+650   347
+675   318
+700   288
+725   255
+750   221
+775   185
+800   149

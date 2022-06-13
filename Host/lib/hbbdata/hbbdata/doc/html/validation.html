@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Verification and Validation &#8212; hbbdata 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Software quality plan" href="plan.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="verification-and-validation">
+<span id="validation"></span><h1>Verification and Validation<a class="headerlink" href="#verification-and-validation" title="Permalink to this headline">¶</a></h1>
+<p>Verification is the process of ensuring the software package meets the system requirements.  Validation is ultimate acceptance by the end user.  For the hbbdata package verification testing is accomplished through a two step approach:</p>
+<ol class="arabic simple">
+<li><p>For digitization of Code table or figure data, one developer impalements the digitization while a second developer peer-reviews the work by checking each entry against the corresponding table in the Code.</p></li>
+<li><p>A unit test suite:</p>
+<ol class="arabic simple">
+<li><p>Spot checks individual, interpolated values against randomly selected corresponding checks to the relevant Code book.</p></li>
+<li><p>Ensure that the appropriate out of bounds exceptions are thrown if the user requests data at conditions outside those allowed by the Code.</p></li>
+</ol>
+</li>
+</ol>
+<p>As this is a data package, our expectation is that the end user requirements are essentially accurate results, as checked with the verification procedure.  As such, this part of the documentation focuses on the verification process.  End user feedback on the API and python interface will be incorporated into the final, release version of the software.</p>
+<div class="section" id="verification-cross-checks">
+<h2>Verification cross-checks<a class="headerlink" href="#verification-cross-checks" title="Permalink to this headline">¶</a></h2>
+<p>The tabulated Code data was entered into a digital format in the <code class="docutils literal notranslate"><span class="pre">data/</span></code> directory.  The format used for 1D and 2D tables is such that the digitized versions of the table correspond, as much as possible, the actual Code book tables.  This simplifies the process of cross-checking results.  Each individual table was entered by the developer working on the related feature fulfilling a requirement in <a class="reference internal" href="plan.html#requirements"><span class="std std-ref">Requirements</span></a>.  A second, independent developer then cross-checked the table entry manually against the Code.  This peer review process was documented in comments directly in the tables in <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
+</div>
+<div class="section" id="unit-testing">
+<h2>Unit testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
+<p>As an additional layer of verification testing, the package contains python unit tests in the <code class="docutils literal notranslate"><span class="pre">test/</span></code> directory, which can be automatically run with the <a class="reference external" href="https://pypi.org/project/nose/">nose</a> test harness.  These unit tests do spot checks on the accuracy of the design data and also check to make sure the package will not return design data for invalid input parameters.  As described in the <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installing hbbdata</span></a> section, these tests should be run by the user after installing the package to validate the integrity of the installation.</p>
+</div>
+<div class="section" id="isochronous-curves">
+<h2>Isochronous curves<a class="headerlink" href="#isochronous-curves" title="Permalink to this headline">¶</a></h2>
+<p>The isochronous stress-strain curves are the exception to this validation plan.  As noted in the <a class="reference internal" href="plan.html#plan"><span class="std std-ref">Software quality plan</span></a> the strategy for implementing the isochronous stress-strain curves is <em>not</em> to digitize the Section III, Division 5 plots, but rather to implement the original deformation models underlying the plotted curves.  This ensure that values can be easily calculated for arbitrary values of stress, time, and temperature.  However, the process of uncovering and implementing the underlying models uncovered several small discrepancies between the current Division 5 isochronous curves and the original models.  The following figures compare the original Division 5 curves (black lines) with the curves implemented in hbbdata (red lines).  The differences are minor and would not significantly affect the design of a component.  A Code change will change the Division 5 curves to match the model (red) curves shown here in the 2021 edition.</p>
+<p>The figures cover the base Code materials (2.25Cr-1Mo, 9Cr-1Mo-V, Alloy 800H, 316SS, and 304SS).  The implemented isochronous curves for Alloy 617 exactly match the design curves in the A617 Code Case.</p>
+<div class="figure align-default" id="id1">
+<img alt="_images/304-1000F.png" src="_images/304-1000F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1000°F.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id2">
+<img alt="_images/304-1050F.png" src="_images/304-1050F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1050°F.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id3">
+<img alt="_images/304-1100F.png" src="_images/304-1100F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1100°F.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id4">
+<img alt="_images/304-1150F.png" src="_images/304-1150F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1150°F.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id5">
+<img alt="_images/304-1200F.png" src="_images/304-1200F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1200°F.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id6">
+<img alt="_images/304-1250F.png" src="_images/304-1250F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1250°F.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id7">
+<img alt="_images/304-1300F.png" src="_images/304-1300F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1300°F.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id8">
+<img alt="_images/304-1350F.png" src="_images/304-1350F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1350°F.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id9">
+<img alt="_images/304-1400F.png" src="_images/304-1400F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1400°F.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id10">
+<img alt="_images/304-1450F.png" src="_images/304-1450F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1450°F.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id11">
+<img alt="_images/304-1500F.png" src="_images/304-1500F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 1500°F.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id12">
+<img alt="_images/304-800F.png" src="_images/304-800F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 800°F.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id13">
+<img alt="_images/304-850F.png" src="_images/304-850F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 850°F.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id14">
+<img alt="_images/304-900F.png" src="_images/304-900F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 900°F.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id15">
+<img alt="_images/304-950F.png" src="_images/304-950F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 304SS at 950°F.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id16">
+<img alt="_images/316-1000F.png" src="_images/316-1000F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1000°F.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id17">
+<img alt="_images/316-1050F.png" src="_images/316-1050F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1050°F.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id18">
+<img alt="_images/316-1100F.png" src="_images/316-1100F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1100°F.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id19">
+<img alt="_images/316-1150F.png" src="_images/316-1150F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1150°F.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id20">
+<img alt="_images/316-1200F.png" src="_images/316-1200F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1200°F.</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id21">
+<img alt="_images/316-1250F.png" src="_images/316-1250F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1250°F.</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id22">
+<img alt="_images/316-1300F.png" src="_images/316-1300F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1300°F.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id23">
+<img alt="_images/316-1350F.png" src="_images/316-1350F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1350°F.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id24">
+<img alt="_images/316-1400F.png" src="_images/316-1400F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1400°F.</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id25">
+<img alt="_images/316-1450F.png" src="_images/316-1450F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1450°F.</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id26">
+<img alt="_images/316-1500F.png" src="_images/316-1500F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 1500°F.</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id27">
+<img alt="_images/316-800F.png" src="_images/316-800F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 800°F.</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id28">
+<img alt="_images/316-850F.png" src="_images/316-850F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 850°F.</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id29">
+<img alt="_images/316-900F.png" src="_images/316-900F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 900°F.</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id30">
+<img alt="_images/316-950F.png" src="_images/316-950F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 316SS at 950°F.</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id31">
+<img alt="_images/800H-1000F.png" src="_images/800H-1000F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1000°F.</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id32">
+<img alt="_images/800H-1050F.png" src="_images/800H-1050F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1050°F.</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id33">
+<img alt="_images/800H-1100F.png" src="_images/800H-1100F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1100°F.</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id34">
+<img alt="_images/800H-1150F.png" src="_images/800H-1150F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1150°F.</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id35">
+<img alt="_images/800H-1200F.png" src="_images/800H-1200F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1200°F.</span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id36">
+<img alt="_images/800H-1250F.png" src="_images/800H-1250F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1250°F.</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id37">
+<img alt="_images/800H-1300F.png" src="_images/800H-1300F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1300°F.</span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id38">
+<img alt="_images/800H-1350F.png" src="_images/800H-1350F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1350°F.</span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id39">
+<img alt="_images/800H-1400F.png" src="_images/800H-1400F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 1400°F.</span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id40">
+<img alt="_images/800H-800F.png" src="_images/800H-800F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 800°F.</span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id41">
+<img alt="_images/800H-850F.png" src="_images/800H-850F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 850°F.</span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id42">
+<img alt="_images/800H-900F.png" src="_images/800H-900F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 900°F.</span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id43">
+<img alt="_images/800H-950F.png" src="_images/800H-950F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for Alloy 800H at 950°F.</span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id44">
+<img alt="_images/2.25Cr-1Mo-1000F.png" src="_images/2.25Cr-1Mo-1000F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 1000°F.</span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id45">
+<img alt="_images/2.25Cr-1Mo-1050F.png" src="_images/2.25Cr-1Mo-1050F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 1050°F.</span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id46">
+<img alt="_images/2.25Cr-1Mo-1100F.png" src="_images/2.25Cr-1Mo-1100F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 1100°F.</span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id47">
+<img alt="_images/2.25Cr-1Mo-1150F.png" src="_images/2.25Cr-1Mo-1150F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 1150°F.</span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id48">
+<img alt="_images/2.25Cr-1Mo-1200F.png" src="_images/2.25Cr-1Mo-1200F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 1200°F.</span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id49">
+<img alt="_images/2.25Cr-1Mo-700F.png" src="_images/2.25Cr-1Mo-700F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 700°F.</span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id50">
+<img alt="_images/2.25Cr-1Mo-750F.png" src="_images/2.25Cr-1Mo-750F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 750°F.</span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id51">
+<img alt="_images/2.25Cr-1Mo-800F.png" src="_images/2.25Cr-1Mo-800F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 800°F.</span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id52">
+<img alt="_images/2.25Cr-1Mo-850F.png" src="_images/2.25Cr-1Mo-850F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 850°F.</span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id53">
+<img alt="_images/2.25Cr-1Mo-900F.png" src="_images/2.25Cr-1Mo-900F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 900°F.</span><a class="headerlink" href="#id53" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id54">
+<img alt="_images/2.25Cr-1Mo-950F.png" src="_images/2.25Cr-1Mo-950F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 2.25Cr-1Mo at 950°F.</span><a class="headerlink" href="#id54" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id55">
+<img alt="_images/gr91-1000F.png" src="_images/gr91-1000F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 1000°F.</span><a class="headerlink" href="#id55" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id56">
+<img alt="_images/gr91-1050F.png" src="_images/gr91-1050F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 1050°F.</span><a class="headerlink" href="#id56" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id57">
+<img alt="_images/gr91-1100F.png" src="_images/gr91-1100F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 1100°F.</span><a class="headerlink" href="#id57" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id58">
+<img alt="_images/gr91-1150F.png" src="_images/gr91-1150F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 1150°F.</span><a class="headerlink" href="#id58" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id59">
+<img alt="_images/gr91-1200F.png" src="_images/gr91-1200F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 1200°F.</span><a class="headerlink" href="#id59" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id60">
+<img alt="_images/gr91-700F.png" src="_images/gr91-700F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 700°F.</span><a class="headerlink" href="#id60" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id61">
+<img alt="_images/gr91-750F.png" src="_images/gr91-750F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 750°F.</span><a class="headerlink" href="#id61" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id62">
+<img alt="_images/gr91-800F.png" src="_images/gr91-800F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 800°F.</span><a class="headerlink" href="#id62" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id63">
+<img alt="_images/gr91-850F.png" src="_images/gr91-850F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 850°F.</span><a class="headerlink" href="#id63" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id64">
+<img alt="_images/gr91-900F.png" src="_images/gr91-900F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 900°F.</span><a class="headerlink" href="#id64" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id65">
+<img alt="_images/gr91-950F.png" src="_images/gr91-950F.png" />
+<p class="caption"><span class="caption-text">Comparison between the current and implemented isochronous stress-strain curves for 9Cr-1Mo-V at 950°F.</span><a class="headerlink" href="#id65" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">hbbdata</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing hbbdata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API description and documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plan.html">Software quality plan</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Verification and Validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#verification-cross-checks">Verification cross-checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-testing">Unit testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#isochronous-curves">Isochronous curves</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="plan.html" title="previous chapter">Software quality plan</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Argonne National Laboratory.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/validation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

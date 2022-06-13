@@ -1,0 +1,11 @@
+stages:
+      - test
+      - style
+
+ntest:
+      stage: test
+      script: nosetests-3.6
+
+pylint:
+      stage: style
+      script: pylint-3.6 hbbdata

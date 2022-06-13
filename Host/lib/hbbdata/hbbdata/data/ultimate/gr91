@@ -1,0 +1,25 @@
+# data validated 03-09-2017 by Andrea Rovinelli
+# Units are C and MPa
+# Data are from Section II, Part D and Section III, Division 5
+# plate, SA-387, GRADE 91, UNS-K90901,CLASS 2
+-30   586
+40    586
+100   586
+150   586
+200   584
+250   582
+300   577
+325   570
+350   561
+375   549
+400   534
+425   516
+450   494
+475   469
+500   441
+525   410
+550   379
+575   341
+600   303
+625   265
+650   228

@@ -1,0 +1,35 @@
+# data validated 03-09-2017 by Andrea Rovinelli
+# Units are C and MPa
+# Data are from Section II, Part D and Section III, Division 5
+# plate, SB-409, -, UNS-N08810,CLASS - annealed
+-30   448
+40    448
+100   448
+150   448
+200   446
+250   442
+300   440
+325   440
+350   440
+375   440
+400   440
+425   440
+450   440
+475   439
+500   437
+525   432
+550   402
+575   391
+600   378
+625   362
+650   345
+675   326
+700   305
+725   282
+750   258
+775   233
+800   208
+825   182
+850   157
+875   132
+900   109

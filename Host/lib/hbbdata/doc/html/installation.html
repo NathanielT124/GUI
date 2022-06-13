@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Installing hbbdata &#8212; hbbdata 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quickstart guide" href="quickstart.html" />
+    <link rel="prev" title="hbbdata" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="installing-hbbdata">
+<span id="installation"></span><h1>Installing hbbdata<a class="headerlink" href="#installing-hbbdata" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general-requirements">
+<h2>General requirements<a class="headerlink" href="#general-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Generally, to property run and validate the package you need to have Python 3.x installed with the following packages:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.numpy.org/">numpy</a></p></li>
+<li><p><a class="reference external" href="https://www.scipy.org/scipylib/index.html">scipy</a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/nose/">nose</a></p></li>
+</ul>
+<p>All three are very common packages and are available for a variety of operating systems.  The instructions below provide specific instructions on how to install hbbdata on <a class="reference external" href="https://ubuntu.com/">Ubuntu Linux 18.04</a>, <a class="reference external" href="https://www.centos.org/">CentOS 7</a>, and Windows 10.</p>
+</div>
+<div class="section" id="ubuntu-18-04-instructions">
+<h2>Ubuntu 18.04 instructions<a class="headerlink" href="#ubuntu-18-04-instructions" title="Permalink to this headline">¶</a></h2>
+<p>Download the hbbdata distribution and uncompress it into the directory you want it installed to.  Open a terminal and navigate to the root <code class="docutils literal notranslate"><span class="pre">hbbdata/</span></code> directory.</p>
+<p>Install the required packages</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install python3 python3-numpy python3-scipy python3-nose</span>
+</pre></div>
+</div>
+<p>Run the install validation tests</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nosetests3</span>
+</pre></div>
+</div>
+<p>If successful, the result of the testing should be <code class="docutils literal notranslate"><span class="pre">OK</span></code>, with the terminal output looking like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">.........................................</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 41 tests in 3.796s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">hbbdata/</span></code> root directory to your <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> environment variable, preferably in your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file or similar so this step does not need to be repeated each time you open a new terminal.  For example, if the full path to hbbdata is <code class="docutils literal notranslate"><span class="pre">/path/to/hbbdata</span></code> and you are using the bash shell, add the following line to your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export PYTHONPATH=$PYTHONPATH:/path/to/hbbdata</span>
+</pre></div>
+</div>
+<p>Now see the <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quickstart guide</span></a> for an example of how to use hbbdata.</p>
+</div>
+<div class="section" id="centos-7-instructions">
+<h2>CentOS 7 instructions<a class="headerlink" href="#centos-7-instructions" title="Permalink to this headline">¶</a></h2>
+<p>Download the hbbdata distribution and uncompress it into the directory you want it installed to.  Open a terminal and navigate to the root <code class="docutils literal notranslate"><span class="pre">hbbdata/</span></code> directory.</p>
+<p>Install the IUS set of packages, which contains a python 3 release</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo yum install https://centos7.iuscommunity.org/ius-release.rpm</span>
+</pre></div>
+</div>
+<p>Install the required packages</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo yum install python36 python36-numpy python36-scipy python36-nose</span>
+</pre></div>
+</div>
+<p>Run the install validation tests</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nosetests-3.6</span>
+</pre></div>
+</div>
+<p>If successful, the result of the testing should be <code class="docutils literal notranslate"><span class="pre">OK</span></code>, with the terminal output looking like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">.........................................</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 41 tests in 3.796s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">hbbdata/</span></code> root directory to your <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> environment variable, preferably in your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file or similar so this step does not need to be repeated each time you open a new terminal.  For example, if the full path to hbbdata is <code class="docutils literal notranslate"><span class="pre">/path/to/hbbdata</span></code> and you are using the bash shell, add the following line to your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export PYTHONPATH=$PYTHONPATH:/path/to/hbbdata</span>
+</pre></div>
+</div>
+<p>Now see the <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quickstart guide</span></a> for an example of how to use hbbdata.</p>
+</div>
+<div class="section" id="windows-10-instructions">
+<h2>Windows 10 instructions<a class="headerlink" href="#windows-10-instructions" title="Permalink to this headline">¶</a></h2>
+<p>These directions assume the use of the Python 3.7 <a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda</a> distribution to run Python on Windows.  Other methods, including a bare install from the official <a class="reference external" href="https://www.python.org/downloads/">Python 3.7 binaries</a> are possible, but Anaconda provides the quickest method for installing the dependencies.  These directions assume Anaconda has been installed.</p>
+<p>Unzip the hbbdata distribution into the directory you want it installed into.</p>
+<p>Open an Anaconda terminal (generally click the Start Menu, then navigate to click on <code class="docutils literal notranslate"><span class="pre">Anaconda</span> <span class="pre">Prompt</span></code>).  Navigate to the hbbdata root directory using the terminal, i.e.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd C:/Users/username/hbbdata</span>
+</pre></div>
+</div>
+<p>assuming <code class="docutils literal notranslate"><span class="pre">C:/Users/username</span></code> is the directory in which you install the package.</p>
+<p>Run the install validation tests (all the required packages are already installed in the base Anaconda installation).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nosetests</span>
+</pre></div>
+</div>
+<p>If successful, the result of the testing should be <code class="docutils literal notranslate"><span class="pre">OK</span></code>, with the terminal output looking like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">.........................................</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 41 tests in 3.796s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">conda-develop</span></code> to add hbbdata to your python path.  Identify the full pathname to the directory you installed hbbdata.  Say this path is <code class="docutils literal notranslate"><span class="pre">C:/Users/username/hbbdata</span></code> then run the command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda-develop C:/Users/username/hbbdata</span>
+</pre></div>
+</div>
+<p>Now see the <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quickstart guide</span></a> for an example of how to use hbbdata.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">hbbdata</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing hbbdata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-requirements">General requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ubuntu-18-04-instructions">Ubuntu 18.04 instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#centos-7-instructions">CentOS 7 instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows-10-instructions">Windows 10 instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API description and documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plan.html">Software quality plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Verification and Validation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">hbbdata</a></li>
+      <li>Next: <a href="quickstart.html" title="next chapter">Quickstart guide</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Argonne National Laboratory.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
