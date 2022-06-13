@@ -5,13 +5,14 @@ Created on Fri Jun 10 17:55:37 2022
 @author: natha
 """
 from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
+import HBBdata
+# from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-db  = SQLAlchemy(app)
-
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+# db  = SQLAlchemy(app)
+"""
 class Drink(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80),unique=True, nullable=False)
@@ -19,7 +20,7 @@ class Drink(db.Model):
 
     def __repr__(self):
         return f"{self.name} - {self.description}"
-
+"""
 
 @app.route('/home')
 def home():
@@ -29,6 +30,7 @@ def home():
 def index():
     return 'Hello!'
 
+"""
 @app.route('/drinks')
 def get_drinks():
     drinks = Drink.query.all()
@@ -38,19 +40,25 @@ def get_drinks():
         drink_data = {'name': drink.name, 'description': drink. description}
         output.append(drink_data)
     return {"drinks": output}
+"""
 
+"""
 @app.route('/drinks/<id>')
 def get_drink(id):
     drink = Drink.query.get_or_404(id)
     return {"name": drink.name, "description": drink.description}
+"""
 
+"""
 @app.route('/drinks', methods=['POST'])
 def add_drink():
     drink = Drink(name=request.json['name'], description=request.json['description'])
     db.session.add(drink)
     db.session.commit()
     return {'id': drink.id}
+"""
 
+"""
 @app.route('/drinks/<id>', methods=['DELETE'])
 def delete_drink():
     drink = Drink.query.get(id)
@@ -59,10 +67,13 @@ def delete_drink():
     db.session.delete(drink)
     db.session.commit()
     return {"message:": "That drink was yote"}
+"""
 
 @app.route('/youngs/')
 def youngs():
-    return {"name": "Cranberry Applesauce", "description": "It's more like a snack than a drink."}
+    # return {"name": "Cranberry Applesauce", "description": "It's more like a snack than a drink."}
+    res = HBBdata.elastic.youngs('800H', 500);
+    return {"Result": res[0]}
 
 if __name__ == "__main__":
     app.run()
